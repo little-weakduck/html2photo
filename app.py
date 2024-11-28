@@ -51,7 +51,8 @@ def serve_image(filename):
 def serve_css(filename):
     image_path = os.path.join("icons", filename)
     if os.path.exists(image_path):
-        return send_file(image_path, mimetype='image/png')
+        #svg
+        return send_file(image_path, mimetype='image/svg+xml')
     else:
         abort(404)
 
