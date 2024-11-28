@@ -4,13 +4,13 @@ import os
 import time
 import subprocess
 import threading
+import urllib.parse
 
 app = Flask(__name__)
 
 @app.route('/convert', methods=['POST'])
 def convert_html_to_image():
-    # 获取 JSON 数据
-    data = request.get_body()
+    data = request.data
     
     data = data.decode("utf-8")
     data = json.loads(data)
