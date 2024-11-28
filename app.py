@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, send_file, abort
 import os
 import time
@@ -9,12 +10,17 @@ app = Flask(__name__)
 @app.route('/convert', methods=['POST'])
 def convert_html_to_image():
     # 获取 JSON 数据
-    data = request.get_json()
-    if data is None or "html" not in data:
-        return abort(400, description="Invalid JSON data")
+    data = request.get_body()
+    
+    data = data.decode("utf-8")
+    data = json.loads(data)
 
     # 获取 HTML 字符串
     html_string = data.get("html")
+    
+        # 解码 URL 编码的 HTML 字符串
+    html_string = urllib.parse.unquote(html_string)
+
 
 
     # 创建一个唯一的文件名
