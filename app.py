@@ -50,4 +50,4 @@ def serve_image(filename):
 if __name__ == '__main__':
     if not os.path.exists("images"):
         os.makedirs("images")
-    app.run(debug=True)
+    app.run(debug=True,port=123321)
