@@ -8,11 +8,14 @@ app = Flask(__name__)
 
 @app.route('/convert', methods=['POST'])
 def convert_html_to_image():
-    # 获取 HTML 字符串
-    html_string = request.get_json().get("html")
+    # 获取 JSON 数据
+    data = request.get_json()
+    if data is None or "html" not in data:
+        return abort(400, description="Invalid JSON data")
 
-    # 解码 HTML 字符串
-    html_string = html_string.encode('utf-8').decode('unicode_escape')
+    # 获取 HTML 字符串
+    html_string = data.get("html")
+
 
     # 创建一个唯一的文件名
     image_filename = f"image_{int(time.time())}.png"
