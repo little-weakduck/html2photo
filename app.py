@@ -47,9 +47,13 @@ def serve_image(filename):
     else:
         abort(404)
         
-@app.route('/icons.css')
-def serve_css():
-    return send_file("icons.css", mimetype='text/css')
+@app.route('/icons/<path:filename>')
+def serve_css(filename):
+    image_path = os.path.join("icons", filename)
+    if os.path.exists(image_path):
+        return send_file(image_path, mimetype='image/png')
+    else:
+        abort(404)
 
 @app.route('/<path:path>')
 def error():
