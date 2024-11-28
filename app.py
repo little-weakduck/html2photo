@@ -9,7 +9,10 @@ app = Flask(__name__)
 @app.route('/convert', methods=['POST'])
 def convert_html_to_image():
     # 获取 HTML 字符串
-    html_string = request.form.get('html')
+    html_string = request.get_json().get("html")
+
+    # 解码 HTML 字符串
+    html_string = html_string.encode('utf-8').decode('unicode_escape')
 
     # 创建一个唯一的文件名
     image_filename = f"image_{int(time.time())}.png"
@@ -23,7 +26,7 @@ def convert_html_to_image():
     subprocess.run(["phantomjs", "render.js", html_path, image_path])
 
     # 创建一个指向图片的链接
-    link = f"http://localhost:4455/images/{image_filename}"
+    link = f"http://82.156.18.208:4455/images/{image_filename}"
 
     # 设置定时器，在 5 分钟后删除图片
     def delete_image():
