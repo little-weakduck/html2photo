@@ -51,7 +51,7 @@ def serve_image(filename):
 def serve_css():
     return send_file("icons.css", mimetype='text/css')
 
-@app.route('<path:path>')
+@app.route('/<path:path>')
 def error():
     return "404 Not Found", 404, {'Content-Type': 'text/plain'}
 if __name__ == '__main__':
