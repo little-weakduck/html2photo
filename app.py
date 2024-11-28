@@ -23,7 +23,7 @@ def convert_html_to_image():
     subprocess.run(["phantomjs", "render.js", html_path, image_path])
 
     # 创建一个指向图片的链接
-    link = f"http://localhost:123321/images/{image_filename}"
+    link = f"http://localhost:4455/images/{image_filename}"
 
     # 设置定时器，在 5 分钟后删除图片
     def delete_image():
@@ -50,4 +50,6 @@ def serve_image(filename):
 if __name__ == '__main__':
     if not os.path.exists("images"):
         os.makedirs("images")
-    app.run(debug=True,port=123321)
+    if not os.path.exists("html"):
+        os.makedirs("html")
+    app.run(debug=True,port=4455)
