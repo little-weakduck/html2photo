@@ -46,7 +46,14 @@ def serve_image(filename):
         return send_file(image_path, mimetype='image/png')
     else:
         abort(404)
+        
+@app.route('/icons.css')
+def serve_css():
+    return send_file("icons.css", mimetype='text/css')
 
+@app.route('<path:path>')
+def error():
+    return "404 Not Found", 404, {'Content-Type': 'text/plain'}
 if __name__ == '__main__':
     if not os.path.exists("images"):
         os.makedirs("images")
